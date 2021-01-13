@@ -19,9 +19,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Console.setTitle("Nano Proxy");
+        Console.setTitle("Nano Proxy - NanoSoftwares");
         Request.setVersion(HttpClient.Version.HTTP_1_1);
 
+        System.out.println("Welcome To NanoSoftwares Proxy Scrapper + Checker");
         System.out.println("Scrape proxies from sources? (true/false)");
         boolean scraping = Boolean.parseBoolean(Console.readLine());
 
