@@ -17,23 +17,20 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Main
-{
-    public static void main(String[] args) throws IOException, InterruptedException
-    {
-        Console.setTitle("Nano Proxy");
+public class Main {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Console.setTitle("Nano Proxy - NanoSoftwares");
         Request.setVersion(HttpClient.Version.HTTP_1_1);
 
+        System.out.println("Welcome To NanoSoftwares Proxy Scrapper + Checker");
         System.out.println("Scrape proxies from sources? (true/false)");
         boolean scraping = Boolean.parseBoolean(Console.readLine());
 
-        if (scraping)
-        {
+        if (scraping) {
             if (!Files.fileExists("proxies.txt"))
                 Files.writeFile("proxies.txt", "", false);
 
-            Parallel.For(Files.readFile("sources.txt").split("\n"), source ->
-            {
+            Parallel.For(Files.readFile("sources.txt").split("\n"), source -> {
                 Console.ansiWriteLine(Foreground.YELLOW, "Scraping from source : " + source, LogType.INFO);
 
                 String body = Request.sendGet(source).body();
@@ -68,19 +65,17 @@ public class Main
 
         Request.setTimeout(timeout);
 
-        Parallel.For(proxies, proxy ->
-        {
-            try
-            {
+        Parallel.For(proxies, proxy -> {
+            try {
                 Console.setTitle("Nano Proxy | Checking (" + checked + "/" + proxies.length + ") | " + live + " Live");
 
                 String[] array = proxy.split(":");
                 boolean valid = false;
 
-                if (fastChecking)
+                if (fastChecking) {
                     valid = InetAddress.getByName(array[0]).isReachable(timeout);
-                else
-                {
+                }
+                else {
                     Request.setProxy(ProxySelector.of(new InetSocketAddress(array[0], Integer.parseInt(array[1]))));
 
                     String judge = judges[random.nextInt(judges.length)];
@@ -89,16 +84,16 @@ public class Main
                     valid = response.statusCode() == 200;
                 }
 
-                if (valid)
-                {
+                if (valid) {
                     Console.ansiWrite(Foreground.GREEN, "[GOOD]    " + proxy, LogType.INFO);
                     Files.writeFile("live.txt", proxy + "\n", true);
 
                     live.getAndIncrement();
-                } else Console.ansiWrite(Foreground.RED, "[BAD]     " + proxy, LogType.INFO);
+                } else {
+                    Console.ansiWrite(Foreground.RED, "[BAD]     " + proxy, LogType.INFO);
+                }
             }
-            catch (Throwable t)
-            {
+            catch (Throwable t) {
                 Console.ansiWrite(Foreground.BLUE, "[UNKNOWN] " + proxy, LogType.INFO);
             }
 
