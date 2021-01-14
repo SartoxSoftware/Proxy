@@ -1,5 +1,7 @@
 # Nano Proxy
 A fast proxy checker made in Java.
 
-**WARNING : Requires JavaToolkit v1.1!**<br/>
-**Made with IntelliJ IDEA 2020.3 and AdoptOpenJDK 11.**
+# Requirements
+**IDE** IntelliJ IDEA 2020.3<br/>
+**JavaToolkit** v1.1 for Release versions, v1.2 for Dev code<br/>
+**AdoptOpenJDK** 11
